@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.css">
+    <title>孜然是一只可爱的英格兰小乳猪</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .order-page {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .green-line {
+            height: 3px;
+            background-color: #71b247;
+        }
+
+        .flower-line {
+            height: 4px;
+            background: url('../imgs/order-icons.png') repeat-x;
+            background-position: 0 -117px;
+        }
+
+        .order-part {
+            margin-bottom: 20px;
+        }
+
+        .order-state {
+            height: 330px;
+            text-align: center;
+            padding: 0 0 7px 0;
+            background-color: #fff;
+        }
+
+        .state-inner {
+            padding: 20px;
+        }
+
+        .state-top {
+            font-size: 12px;
+            margin-bottom: 30px;
+            color: #999;
+        }
+
+        .state-left {
+            float: left;
+            width: 25%;
+            height: 100%;
+        }
+
+        .state-left .left-content {
+            padding-top: 40px;
+        }
+
+
+        .state-left .state-txt {
+            font: 700 24px/34px "Microsoft YaHei";
+            color: #71b247;
+        }
+
+
+        /* 订单状态右边 */
+        .state-right {
+            float: right;
+            width: 75%;
+            height: 100%;
+            border-left: 1px solid #f1f1f1;
+        }
+
+        .state-right .state-top {
+            text-align: left;
+            margin-bottom: 70px;
+        }
+
+        .right-content {
+            background-color: rgb(87, 161, 214);
+            overflow: hidden;
+
+        }
+
+        .state-item {
+            position: relative;
+            float: left;
+            width: 20%;
+            background-color: #fff;
+        }
+
+        .state-item .state-icon {
+            width: 43px;
+            height: 43px;
+            background-color: red;
+            margin: 0 auto;
+        }
+
+        .state-process {
+            position: relative;
+        }
+
+        .state-process .process-line {
+            position: absolute;
+            width: 60%;
+            height: 15px;
+            /* background-color: rgb(191, 26, 26); */
+            top: 20px;
+            left: 70%;
+            z-index: 1000;
+            background: url('../imgs/process-lines.png') no-repeat;
+            background-size: 100%;
+            background-position-y: 0px;
+
+        }
+
+        .state-detail {
+            padding-top: 20px;
+        }
+
+        .state-detail .state-title {
+            line-height: 30px;
+            font: 14px tahoma, arial, Microsoft YaHei, Hiragino Sans GB, "\u5b8b\u4f53", sans-serif;
+        }
+
+        .state-detail .state-time {
+            padding-top: 5px;
+            line-height: 18px;
+            font: 12px tahoma, arial, Microsoft YaHei, Hiragino Sans GB, "\u5b8b\u4f53", sans-serif;
+        }
+
+        /* 
+            修改流程的进度颜色: 
+            改变
+             .state-process .process-line {
+                 background-position-y: 0px;  // 以15px为一个单位
+             }
+         */
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    别紧张 我只是一些占位符
+    <br>
+    <br>
+    <br>
+    <div class="order-page">
+        <div class="green-line"></div>
+        
+        <!-- 订单状态 -->
+        <div class="order-part">
+
+
+            <div class="order-state">
+                <!-- 订单状态 -->
+                <div class="state-left">
+                    <div class="state-inner">
+
+
+                        <div class="state-top">
+                            订单号：106632018059
+                        </div>
+                        <div class="left-content">
+                            <p class="state-txt">
+                                完 成
+                            </p>
+                            <!-- <button class="btn-grey">查看发票详情</button> -->
+                            <!-- <button class="">评价</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 订单流程 -->
+                <div class="state-right">
+                    <div class="state-inner">
+                        <div class="state-top">
+                            订单已经完成，感谢您在京东商城购物，欢迎您对本次交易及所购商品进行评价。
+                        </div>
+
+                        <!-- 订单进度 -->
+                        <div class="right-content">
+                            <div class="state-process">
+                                <div class="state-item">
+
+                                    <div class="state-icon"></div>
+                                    <div class="state-detail">
+                                        <div class="state-title">提交订单</div>
+                                        <div class="state-time">
+                                            2019-11-25
+                                            <br>
+                                            17:27:43
+                                        </div>
+                                    </div>
+
+                                    <div class="process-line"></div>
+                                </div>
+                                <div class="state-item">
+
+                                    <div class="state-icon"></div>
+                                    <div class="state-detail">
+                                        <div class="state-title">提交订单</div>
+                                        <div class="state-time">
+                                            2019-11-25
+                                            <br>
+                                            17:27:43
+                                        </div>
+                                    </div>
+
+                                    <div class="process-line"></div>
+                                </div>
+                                <div class="state-item">
+
+                                    <div class="state-icon"></div>
+                                    <div class="state-detail">
+                                        <div class="state-title">提交订单</div>
+                                        <div class="state-time">
+                                            2019-11-25
+                                            <br>
+                                            17:27:43
+                                        </div>
+                                    </div>
+
+                                    <div class="process-line"></div>
+                                </div>
+                                <div class="state-item">
+
+                                    <div class="state-icon"></div>
+                                    <div class="state-detail">
+                                        <div class="state-title">提交订单</div>
+                                        <div class="state-time">
+                                            2019-11-25
+                                            <br>
+                                            17:27:43
+                                        </div>
+                                    </div>
+
+                                    <div class="process-line"></div>
+                                </div>
+                                <div class="state-item">
+
+                                    <div class="state-icon"></div>
+                                    <div class="state-detail">
+                                        <div class="state-title">提交订单</div>
+                                        <div class="state-time">
+                                            2019-11-25
+                                            <br>
+                                            17:27:43
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flower-line"></div>
+        </div>
+        <div class="order-part">
+
+            <!-- 订单物流 -->
+            <div class="order-logistics">
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/bootstrap/js/bootstrap.js"></script>
+</body>
+
+</html>
