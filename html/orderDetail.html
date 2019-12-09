@@ -6,10 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.css">
-    <title>孜然是一只可爱的英格兰小乳猪</title>
+
+    <script src="../js/jquery-3.4.1.js"></script>
+    <title>英格兰小乳猪</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            font: 12px/150% tahoma, arial, Microsoft YaHei, Hiragino Sans GB, "\u5b8b\u4f53", sans-serif;
+            color: #666;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a,
+        a:active,
+        a:hover,
+        a:visited,
+        a:focus {
+            color: #333;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #e4393c;
+            text-decoration: none;
+        }
+
+        .color-red {
+            color: #e4393c;
         }
 
         .order-page {
@@ -51,7 +84,7 @@
 
         .state-left {
             float: left;
-            width: 25%;
+            width: 26%;
             height: 100%;
         }
 
@@ -59,17 +92,16 @@
             padding-top: 40px;
         }
 
-
         .state-left .state-txt {
             font: 700 24px/34px "Microsoft YaHei";
             color: #71b247;
         }
 
-
         /* 订单状态右边 */
+
         .state-right {
             float: right;
-            width: 75%;
+            width: 74%;
             height: 100%;
             border-left: 1px solid #f1f1f1;
         }
@@ -82,7 +114,6 @@
         .right-content {
             background-color: rgb(87, 161, 214);
             overflow: hidden;
-
         }
 
         .state-item {
@@ -90,13 +121,34 @@
             float: left;
             width: 20%;
             background-color: #fff;
+            color: #333;
         }
 
         .state-item .state-icon {
             width: 43px;
             height: 43px;
-            background-color: red;
+            background: url('../imgs/proce-icon.png');
             margin: 0 auto;
+        }
+
+        .state-item.sub-order .state-icon {
+            background-position: 0 -108px;
+        }
+
+        .state-item.order-paid .state-icon {
+            background-position: -54px -108px;
+        }
+
+        .state-item.goods-shipped .state-icon {
+            background-position: -108px -108px;
+        }
+
+        .state-item.goods-delivered .state-icon {
+            background-position: -270px -108px;
+        }
+
+        .state-item.order-finished .state-icon {
+            background-position: -216px -54px;
         }
 
         .state-process {
@@ -113,8 +165,7 @@
             z-index: 1000;
             background: url('../imgs/process-lines.png') no-repeat;
             background-size: 100%;
-            background-position-y: 0px;
-
+            background-position-y: -30px;
         }
 
         .state-detail {
@@ -139,19 +190,394 @@
                  background-position-y: 0px;  // 以15px为一个单位
              }
          */
+        /* 物流详情 */
+
+        .order-logistics {
+            height: 256px;
+            background-color: #fff;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .logistics-inner {
+            overflow: hidden;
+            padding: 30px 20px 20px 20px;
+        }
+
+        /* 物流左 */
+        .logistics-left {
+            float: left;
+            width: 26%;
+            height: 100%;
+        }
+
+        .logistics-left .product-img {
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+
+        .logistics-left .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .product-info {
+            float: left;
+            padding: 0px 0 0 15px;
+        }
+
+        .product-info {
+            height: 100%;
+
+        }
+
+        .product-info ul li {
+            line-height: 25px;
+            overflow: visible;
+            white-space: nowrap;
+        }
+
+        /* 物流右详情 */
+        .logistics-right {
+            height: 100%;
+            float: right;
+            width: 74%;
+            border-left: 1px solid #f1f1f1;
+        }
+
+        .logistics-right ul,
+        .logistics-right li {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .logistics-right ul {
+            height: 200px;
+            overflow-y: scroll;
+
+        }
+
+        .logistics-item {
+            width: 100%;
+            /* padding-top: 10px; */
+        }
+
+        .logistics-item .logistics-times {
+            float: left;
+            width: 180px;
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        .logistics-times .logis-date {
+            display: inline-block;
+            width: 110px;
+            display: none;
+        }
+
+        /* 当有after-date类时, 才显示几月几号 */
+        .after-date .logistics-times .logis-date {
+            display: inline-block;
+        }
+
+        .logistics-times .logis-time {
+            display: inline-block;
+            width: 65px;
+        }
+
+        .logistics-item .logis-process-line {
+            width: 20px;
+            height: 100%;
+            float: left;
+            position: relative;
+
+        }
+
+        .logis-process-line .proce-icon {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .proce-icon .icon-img {
+            position: absolute;
+            left: 10px;
+            top: .logistics-item.receipted .proce-icon .icon-imgpx;
+            width: 20px;
+            height: 20px;
+            background: url('../imgs/logis-icon.png') no-repeat;
+        }
+
+        .logistics-item.ordered .proce-icon .icon-img {
+            background-position: -175px -25px;
+        }
+
+        .logistics-item.disposing .proce-icon .icon-img {
+            background-position: -125px -25px;
+        }
+
+        .logistics-item.collected .proce-icon .icon-img {
+            background-position: -50px -25px;
+        }
+
+        .logistics-item.shipping .proce-icon .icon-img {
+            background-position: -75px -25px;
+        }
+
+        .logistics-item.delivering .proce-icon .icon-img {
+            background-position: -50px -25px;
+        }
+
+        .logistics-item.receipted .proce-icon .icon-img {
+            background-position: -25px 0;
+        }
+
+        .logistics-item.procing .proce-icon .icon-img {
+            background: url('../imgs/track-icon.png');
+            background-position: -60px 0;
+        }
+
+        /* 
+            订单状态图标样式: 
+            以25px为一个单位, 可展示不同状态.
+         */
+
+        .logis-state {
+            float: left;
+            border-left: 1px solid #f1f1f1;
+            padding-left: 20px;
+            width: calc(100% - 270px);
+        }
+
+        .logis-state .logis-detail {
+            padding-bottom: 10px;
+        }
+
+
+        .logis-state .logis-title {
+            line-height: 22px;
+            font-weight: 600;
+        }
+
+        .logis-state .logis-detail {
+            line-height: 22px;
+        }
+
+        /* 付款信息 */
+
+        .payment-info {
+            height: 288px;
+            overflow: hidden;
+            padding: 15px 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .payment-info .info-items {
+            height: 100%;
+        }
+
+        .payment-info .info-items>li {
+            float: left;
+            width: calc(25% - 1px);
+            height: 100%;
+            border-right: 1px solid #f1f1f1;
+        }
+
+        .payment-info .info-items>li .infor-inner {
+            padding: 0 10px 0 30px;
+            height: 100%;
+        }
+
+        .payment-info .pay-info-title {
+            line-height: 24px;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .pay-info-content .pay-items>li {
+            line-height: 24px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .pay-items .pay-item-title {
+            float: left;
+            width: 84px;
+        }
+
+        .pay-items .pay-item-detail {
+            float: right;
+            width: calc(100% - 85px);
+        }
+
+        .shop-name {
+            margin-bottom: 20px;
+        }
+
+        /* 商品列表 */
+        .goods-list {
+            background-color: #fff;
+        }
+
+        .goods-list table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .goods-list table tr .grap {
+            width: 20px;
+        }
+
+        .goods-list table tr th {
+            background-color: #f9f9f9;
+            text-align: center;
+            line-height: 34px;
+            font-weight: 500;
+        }
+
+        .goods-list table tr th:nth-child(2) {
+            width: 42%;
+        }
+
+        .goods-list table tr td {
+            padding: 17px 0 20px;
+            vertical-align: top;
+            border-top: 1px solid #eee;
+        }
+
+        .goods-list table tr:nth-child(2) td,
+        .goods-list table tr td.grap {
+            border: none;
+        }
+
+        .goods-list-item {
+            overflow: hidden;
+        }
+
+        .goods-list-item .goods-img {
+            float: left;
+            width: 58px;
+            height: 58px;
+        }
+
+        .goods-list-item .goods-img img {
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid #e4e4e4;
+        }
+
+        .goods-list-item .goods-info {
+            float: right;
+            width: calc(100% - 65px);
+            text-align: left;
+        }
+
+        .goods-list-item .goods-info .goods-info-detail {
+            display: inline-block;
+            min-height: 40px;
+        }
+
+        .goods-list-item .goods-info .goods-info-more {
+            color: #999;
+            /* vertical-align: bottom; */
+        }
+
+        .goods-list table .goods-operate {
+            vertical-align: middle;
+        }
+
+        .goods-operate .op-btn {
+            margin-bottom: 10px;
+        }
+
+        .goods-operate .op-btn .grey-btn {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            padding: 2px 0 3px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            color: #333;
+            border-radius: 2px;
+            width: 85px;
+            text-align: center;
+        }
+
+        .goods-operate .op-btn .grey-btn:hover {
+            background: #fff;
+            border-color: #e4393c;
+            color: #e4393c;
+        }
+
+        .goods-operate .op-btn .grey-btn:hover .ico {
+            background-position: -24px -182px;
+
+        }
+
+        .goods-operate .op-btn .ico {
+            display: inline-block;
+            width: 10px;
+            height: 17px;
+            background: url('../imgs/order-icons.png') no-repeat;
+            background-position: -24px -156px;
+            vertical-align: middle;
+        }
+
+        .payment-total {
+            border-top: 1px solid #eee;
+        }
+
+        .payment-total-inner {
+            padding: 20px;
+        }
+
+        .payment-total-inner .pay-details {
+            text-align: right;
+            overflow: hidden;
+        }
+
+        .payment-total-inner .pay-details ul {
+            width: 60%;
+            float: right;
+        }
+
+        .payment-total-inner .pay-details ul li {
+            line-height: 28px;
+        }
+
+        .pay-details .pay-label {
+            display: inline-block;
+            width: 60%;
+            background-color: #fff;
+
+        }
+
+        .pay-details .pay-txt {
+            display: inline-block;
+            width: 130px;
+        }
+
+        .pay-details .total-fare {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /*  */
     </style>
 </head>
 
 <body>
     <br>
-    <br>
-    别紧张 我只是一些占位符
+    <br> 嘿丫丫~ 我只是一些占位符
     <br>
     <br>
     <br>
     <div class="order-page">
         <div class="green-line"></div>
-        
+
         <!-- 订单状态 -->
         <div class="order-part">
 
@@ -185,71 +611,66 @@
                         <!-- 订单进度 -->
                         <div class="right-content">
                             <div class="state-process">
-                                <div class="state-item">
+                                <div class="state-item sub-order">
 
                                     <div class="state-icon"></div>
                                     <div class="state-detail">
                                         <div class="state-title">提交订单</div>
                                         <div class="state-time">
                                             2019-11-25
-                                            <br>
-                                            17:27:43
+                                            <br> 17:27:43
                                         </div>
                                     </div>
 
                                     <div class="process-line"></div>
                                 </div>
-                                <div class="state-item">
+                                <div class="state-item order-paid">
 
                                     <div class="state-icon"></div>
                                     <div class="state-detail">
-                                        <div class="state-title">提交订单</div>
+                                        <div class="state-title">付款成功</div>
                                         <div class="state-time">
                                             2019-11-25
-                                            <br>
-                                            17:27:43
+                                            <br> 17:27:43
                                         </div>
                                     </div>
 
                                     <div class="process-line"></div>
                                 </div>
-                                <div class="state-item">
+                                <div class="state-item goods-shipped">
 
                                     <div class="state-icon"></div>
                                     <div class="state-detail">
-                                        <div class="state-title">提交订单</div>
+                                        <div class="state-title">商品出库</div>
                                         <div class="state-time">
                                             2019-11-25
-                                            <br>
-                                            17:27:43
+                                            <br> 17:27:43
                                         </div>
                                     </div>
 
                                     <div class="process-line"></div>
                                 </div>
-                                <div class="state-item">
+                                <div class="state-item goods-delivered">
 
                                     <div class="state-icon"></div>
                                     <div class="state-detail">
-                                        <div class="state-title">提交订单</div>
+                                        <div class="state-title">等待收货</div>
                                         <div class="state-time">
                                             2019-11-25
-                                            <br>
-                                            17:27:43
+                                            <br> 17:27:43
                                         </div>
                                     </div>
 
                                     <div class="process-line"></div>
                                 </div>
-                                <div class="state-item">
+                                <div class="state-item order-finished">
 
                                     <div class="state-icon"></div>
                                     <div class="state-detail">
-                                        <div class="state-title">提交订单</div>
+                                        <div class="state-title">完成</div>
                                         <div class="state-time">
                                             2019-11-25
-                                            <br>
-                                            17:27:43
+                                            <br> 17:27:43
                                         </div>
                                     </div>
                                 </div>
@@ -265,9 +686,436 @@
 
             <!-- 订单物流 -->
             <div class="order-logistics">
-                
+                <div class="logistics-left">
+                    <div class="logistics-inner">
+                        <div class="product-img">
+                            <img src="../imgs/pro-img-1.jpg" alt="">
+                        </div>
+                        <div class="product-info">
+                            <ul>
+                                <li>
+                                    <span class="info-title">送货方式：</span>
+                                    <span class="info-detail">普通快递</span>
+                                </li>
+                                <li>
+                                    <span class="info-title">承运人：</span>
+                                    <span class="info-detail">中通快递</span>
+                                </li>
+                                <li>
+                                    <span class="info-title">承运人电话：</span>
+                                    <span class="info-detail">95311</span>
+                                </li>
+                                <li>
+                                    <span class="info-title">货运单号：</span>
+                                    <span class="info-detail">544643772040</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="logistics-right">
+                    <div class="logistics-inner">
+                        <ul>
+
+                            <!-- 已签收 start -->
+                            <li class="logistics-item receipted after-date">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-30/周六</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">已签收</div>
+                                    <div class="logis-detail">
+                                        <span>[莆田市]快件已在[莆田]签收，签收人：本人，如有疑问请电联：18605947532/0594-2359777，您的快递已经妥投，如果您对我们的服务感到满意，请给个五星好评，鼓励一下我们【请在评价快递员处帮忙点亮五颗星星哦~】</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 已签收 end -->
+
+
+                            <!-- 中间的小流程 可复制 start -->
+                            <li class="logistics-item procing">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-30/周六</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-detail">
+                                        <span>我是中间的流程啊</span>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 我是中间的小流程 可复制  end -->
+
+                            <!-- 这些还是流程啦 -->
+                            <li class="logistics-item procing">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-30/周六</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-detail">
+                                        <span>我是中间的流程啊</span>
+
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- 正在派件 start -->
+                            <li class="logistics-item delivering">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-28/周四</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">派件中</div>
+                                    <div class="logis-detail">
+                                        <span>[莆田市][莆田](0594-2359777)的(马明明)正在派件(18605947532)请保持电话畅通，并耐心等待</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 正在派件 end -->
+
+
+                            <!-- 运输中 start -->
+                            <li class="logistics-item shipping  after-date">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-28/周四</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">运输中</div>
+                                    <div class="logis-detail">
+                                        <span>[莆田市]快件已到达[莆田]</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 运输中 start -->
+
+                            <!-- 已揽收 end -->
+                            <li class="logistics-item collected">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-28/周四</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">已揽收</div>
+                                    <div class="logis-detail">
+                                        <span>[郑州市][郑州市场部](0371-61860123)的(盼盼食品)(15093370779)已揽收</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 已揽收 end -->
+
+                            <!-- 仓库处理 start -->
+
+                            <li class="logistics-item disposing">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-28/周四</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">仓库处理中</div>
+                                    <div class="logis-detail">
+                                        <span>您的订单由第三方卖家拣货完成，待出库交付中通速递，运单号为544643772040</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 仓库处理 end -->
+
+                            <!-- 已下单 start -->
+                            <li class="logistics-item ordered">
+                                <div class="logistics-times">
+                                    <span class="logis-date">2019-11-28/周四</span>
+                                    <span class="logis-time">13:26:26</span>
+                                </div>
+                                <div class="logis-process-line">
+                                    <div class="proce-icon">
+                                        <!-- <img src="../imgs/logis-icon.png" alt=""> -->
+                                        <div class="icon-img"></div>
+                                    </div>
+                                </div>
+                                <div class="logis-state">
+                                    <div class="logis-title">已下单</div>
+                                    <div class="logis-detail">
+                                        <span>您提交了订单，请等待第三方卖家系统确认</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- 已下单 end -->
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="order-part">
+            <div class="payment-info">
+                <ul class="info-items">
+                    <li>
+                        <div class="infor-inner">
+                            <div class="pay-info-title">
+                                收货人信息
+                            </div>
+                            <div class="pay-info-content">
+                                <ul class="pay-items">
+                                    <li>
+                                        <span class="pay-item-title">收货人：</span>
+                                        <span class="pay-item-detail">小母猪</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">地址：</span>
+                                        <span class="pay-item-detail">喵星球可爱国可爱省可爱市可爱县可爱乡可爱镇可爱村</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">手机号码：</span>
+                                        <span class="pay-item-detail">152****0430</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">邮箱：</span>
+                                        <span class="pay-item-detail">k***@***</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="infor-inner">
+                            <div class="pay-info-title">
+                                配送信息
+                            </div>
+                            <div class="pay-info-content">
+                                <ul class="pay-items">
+                                    <li>
+                                        <span class="pay-item-title">配送方式：</span>
+                                        <span class="pay-item-detail">普通快递</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">运费：</span>
+                                        <span class="pay-item-detail">¥0.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="infor-inner">
+                            <div class="pay-info-title">
+                                付款信息
+                            </div>
+                            <div class="pay-info-content">
+                                <ul class="pay-items">
+                                    <li>
+                                        <span class="pay-item-title">付款方式：</span>
+                                        <span class="pay-item-detail">在线支付</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">付款时间：</span>
+                                        <span class="pay-item-detail">2019-11-25 17:28:14</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">商品总额：</span>
+                                        <span class="pay-item-detail">¥199.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">应支付金额：</span>
+                                        <span class="pay-item-detail">¥79.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">优惠券：</span>
+                                        <span class="pay-item-detail">¥120.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-item-title">订单优惠：</span>
+                                        <span class="pay-item-detail">¥120.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="infor-inner">
+                            <div class="pay-info-title">
+                                发票信息
+                            </div>
+                            <div class="pay-info-content">
+                                <ul class="pay-items">
+                                    <li>
+                                        <span class="pay-item-title">发票类型：</span>
+                                        <span class="pay-item-detail">补开发票</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="shop-name">胖胖的旗舰店</div>
+        <div class="order-part">
+            <div class="goods-list">
+                <div class="goods-inner">
+                    <table>
+                        <tr>
+                            <th class="grap"></th>
+                            <th>商品</th>
+                            <th>商品编号</th>
+                            <th>京东价</th>
+                            <th>商品数量</th>
+                            <th>操作</th>
+                            <th class="grap"></th>
+                        </tr>
+                        <tr>
+                            <td class="grap"></td>
+                            <td>
+                                <div class="goods-list-item">
+                                    <div class="goods-img">
+                                        <img src="../imgs/pro-img-1.jpg" alt="">
+                                    </div>
+                                    <div class="goods-info">
+                                        <span class="goods-info-detail">【神券199减120】盼盼 糕点零食大礼包 猪饲料干蛋糕蛋黄派铜锣烧肉松饼 软华夫手撕面包
+                                            豪华版</span>
+                                        <div class="goods-info-more">
+                                            豪华版
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="goods-num">
+                                33790478027
+                            </td>
+                            <td class="goods-price">
+                                ¥199.00
+                            </td>
+                            <td class="goods-quantity">
+                                1
+                            </td>
+                            <td class="goods-operate">
+                                <div class="op-btns">
+                                    <div class="op-btn">
+                                        <a href="javascript:void(0)">申请售后</a>
+                                    </div>
+                                    <div class="op-btn">
+                                        <span><a href="javascript:void(0)">评价</a></span>|<span><a
+                                                href="javascript:void(0)">晒单</a></span>
+                                    </div>
+                                    <div class="op-btn">
+                                        <a href="javascript:void(0)" class="grey-btn">
+                                            <span class="ico"></span>
+                                            立即购买
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="grap"></td>
+                        </tr>
+
+
+                        <!-- 运费险 -->
+                        <tr>
+                            <td class="grap"></td>
+                            <td>
+                                <div class="goods-list-item">
+                                    <div class="goods-img">
+                                        <img src="../imgs/insurance.jpg" alt="">
+                                    </div>
+                                    <div class="goods-info">
+                                        <span class="goods-info-detail">运费险</span>
+                                        <div class="goods-info-more">
+                                            最高赔付520元呀
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="goods-num">
+                            </td>
+                            <td class="goods-price">
+                                <span>卖家赠送</span>
+                            </td>
+                            <td class="goods-quantity">
+                                1
+                            </td>
+                            <td class="goods-operate">
+
+                            </td>
+                            <td class="grap"></td>
+
+
+                        </tr>
+                    </table>
+                    <div class="payment-total">
+                        <div class="payment-total-inner">
+                            <div class="pay-details">
+                                <ul>
+                                    <li>
+                                        <span class="pay-label">商品总额：</span>
+                                        <span class="pay-txt">¥199.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-label">商品优惠：</span>
+                                        <span class="pay-txt">¥199.00</span>
+                                    </li>
+                                    <li>
+                                        <span class="pay-label">运　　费：</span>
+                                        <span class="pay-txt">¥0.00</span>
+                                    </li>
+                                    <li class="color-red">
+                                        <span class="pay-label">应付总额：</span>
+                                        <span class="pay-txt total-fare">¥199.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        bgcasdfdffd fasd
     </div>
 
     <script src="../js/bootstrap/js/bootstrap.js"></script>
